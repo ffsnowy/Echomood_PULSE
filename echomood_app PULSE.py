@@ -652,7 +652,7 @@ def render_mood_selection_page():
 
     st.subheader("🧠 Fine-tune Your Mood")
     
-# Custom slider with emoji feedback
+    # Custom slider with emoji feedback
     def mood_slider_with_feedback(label, emoji, min_val, max_val, default, help_text, key):
         col1, col2 = st.columns([4, 1])
         with col1:
@@ -699,11 +699,6 @@ def render_mood_selection_page():
         liveness = mood_slider_with_feedback("Live Recording Feel", "🎤", 0.0, 1.0, 0.2,
                                            "0 = Studio recorded, 1 = Live performance", "liveness")
     
-    st.markdown('</div>', unsafe_allow_html=True)
-    
-    return valence, energy, danceability, acousticness, instrumentalness, liveness
-
-
     st.subheader("🔍 Discovery Settings")
     familiarity = st.slider(
         "How familiar should the music be?", 
