@@ -399,7 +399,7 @@ def render_auth_status():
                     <div>
                         <h3 style="margin: 0; color: white; font-size: 18px;">Connected to Spotify</h3>
                         <p style="margin: 0; color: rgba(255, 255, 255, 0.8); font-size: 14px;">
-                            Welcome back, {user_info['display_name']}!
+                            Welcome back, {}!
                         </p>
                     </div>
                 </div>
@@ -419,28 +419,19 @@ def render_auth_status():
     except:
         return
 
-
     # Enhanced Music Source Selection
     st.markdown("### 🎵 Choose Your Music Source")
     
-    # Create glassmorphism cards for music source selection
+    # Create enhanced styling for the music source cards
     st.markdown("""
-    <div style="display: flex; gap: 20px; margin: 30px 0;">
-        <div id="liked-songs-card" class="music-source-card" onclick="selectMusicSource('liked')" style="flex: 1; cursor: pointer;">
-            <div class="card-icon">💖</div>
-            <h3>Liked Songs</h3>
-            <p>Use your saved tracks from Spotify</p>
-            <div class="card-glow"></div>
-        </div>
-        <div id="playlist-card" class="music-source-card" onclick="selectMusicSource('playlist')" style="flex: 1; cursor: pointer;">
-            <div class="card-icon">📋</div>
-            <h3>Specific Playlist</h3>
-            <p>Analyze a particular playlist</p>
-            <div class="card-glow"></div>
-        </div>
-    </div>
-    
     <style>
+    .music-source-container {
+        display: flex;
+        gap: 20px;
+        margin: 30px 0;
+        flex-wrap: wrap;
+    }
+    
     .music-source-card {
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(20px);
@@ -456,6 +447,8 @@ def render_auth_status():
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        flex: 1;
+        min-width: 300px;
     }
     
     .music-source-card:hover {
@@ -489,20 +482,6 @@ def render_auth_status():
         margin: 0;
     }
     
-    .card-glow {
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: left 0.6s;
-    }
-    
-    .music-source-card:hover .card-glow {
-        left: 100%;
-    }
-    
     .playlist-input-container {
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(15px);
@@ -524,31 +503,47 @@ def render_auth_status():
         font-size: 1.2rem;
     }
     </style>
-    
-    <script>
-    function selectMusicSource(type) {
-        // Remove selected class from all cards
-        document.querySelectorAll('.music-source-card').forEach(card => {
-            card.classList.remove('selected');
-        });
-        
-        // Add selected class to clicked card
-        if (type === 'liked') {
-            document.getElementById('liked-songs-card').classList.add('selected');
-        } else {
-            document.getElementById('playlist-card').classList.add('selected');
-        }
-    }
-    </script>
     """, unsafe_allow_html=True)
     
-    # Hidden radio button for actual functionality
+    # Music source selection using radio buttons with custom styling
     fetch_choice = st.radio(
-        "Select music source:",
+        "Select your music source:",
         ("Liked Songs", "Specific Playlist"),
         key="music_source_radio",
-        label_visibility="collapsed"
+        horizontal=True
     )
+    
+    # Display the cards based on selection
+    if fetch_choice == "Liked Songs":
+        st.markdown("""
+        <div class="music-source-container">
+            <div class="music-source-card selected">
+                <div class="card-icon">💖</div>
+                <h3>Liked Songs</h3>
+                <p>Use your saved tracks from Spotify</p>
+            </div>
+            <div class="music-source-card">
+                <div class="card-icon">📋</div>
+                <h3>Specific Playlist</h3>
+                <p>Analyze a particular playlist</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div class="music-source-container">
+            <div class="music-source-card">
+                <div class="card-icon">💖</div>
+                <h3>Liked Songs</h3>
+                <p>Use your saved tracks from Spotify</p>
+            </div>
+            <div class="music-source-card selected">
+                <div class="card-icon">📋</div>
+                <h3>Specific Playlist</h3>
+                <p>Analyze a particular playlist</p>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
     playlist_url = None
     if fetch_choice == "Specific Playlist":
