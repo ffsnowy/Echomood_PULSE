@@ -39,7 +39,7 @@ initialize_session_state()
 # Configuration
 class Config:
     # IMPORTANT: Update this to match your Spotify app settings
-    REDIRECT_URI = "https://echomood-ydeurclvwvw8u7zvpeedjc.streamlit.app/"
+    REDIRECT_URI = "https://echomood-pulse.streamlit.app/"
     CACHE_PATH = ".cache"
     SCOPES = [
         "user-library-read",
