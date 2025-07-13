@@ -1076,12 +1076,13 @@ st.markdown("""
     /* Enhanced progress bars */
     .stProgress > div > div {
         background: linear-gradient(45deg, #1DB954, #1ed760);
-        border-radius: 10px;
-        height: 12px;
+        border-radius: 15px;
+        height: 24px;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
     }
-    
+
     .stProgress > div > div::after {
         content: '';
         position: absolute;
@@ -1089,10 +1090,10 @@ st.markdown("""
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-        animation: progressShimmer 2s infinite;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: progressShimmer 1.5s infinite;
     }
-    
+
     @keyframes progressShimmer {
         0% { transform: translateX(-100%); }
         100% { transform: translateX(100%); }
@@ -1114,6 +1115,40 @@ st.markdown("""
     .stMarkdown, .stText {
         color: white;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        font-size: 16px;
+    }
+
+    /* Ensure all text elements have proper sizing */
+    .stMarkdown p, .stText p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    /* Help text and labels */
+    .stMarkdown small, .help-text {
+        font-size: 14px;
+        opacity: 0.9;
+    }
+
+    /* Radio button labels */
+    .stRadio > div > div > label {
+        font-size: 16px;
+        color: white;
+        font-weight: 500;
+    }
+
+    /* Checkbox labels */
+    .stCheckbox > div > div > label {
+        font-size: 16px;
+        color: white;
+        font-weight: 500;
+    }
+
+    /* Multiselect labels */
+    .stMultiSelect > div > div > label {
+        font-size: 16px;
+        color: white;
+        font-weight: 500;
     }
     
     /* Success/Info/Error messages with animation */
