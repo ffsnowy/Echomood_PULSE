@@ -1,0 +1,46 @@
+streamlit
+spotipy
+
+
+
+to answer your question:
+
+Spotify provides "audio features" for every track using its "audio_features" endpoint
+each song returns a dictionary like:
+{
+  "valence": 0.92,
+  "energy": 0.88,
+  "danceability": 0.75,
+  "acousticness": 0.04,
+  "instrumentalness": 0.0,
+  "liveness": 0.12
+}
+
+
+The values, according to the web, come from machine learning models trained on "beat structure, lyrics, frequency content...."
+The user selects mood sliders in the UI, which are stored in:
+st.session_state.selected_mood = {
+  "valence": valence,
+  "energy": energy,
+  ...
+}
+
+
+the features are called in batches (up to 100) which are then compared to user selected values using:
+if abs(features[param] - target_value) > tolerance:
+    return False
+
+
+There is a tolerance of 0.3 so for example:
+-If user selects energy = 0.7
+-Songs with energy between 0.4 and 1.0 will pass
+-Songs outside that range are excluded
+
+ Songs that pass all 6 filters are kept, so a nice amount of songs comes through
+
+
+
+
+
+
+Essentially, it is gathering a large set of data and selecting a few things like a language model, just not that large ig XD
