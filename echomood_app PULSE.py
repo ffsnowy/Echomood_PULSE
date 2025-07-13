@@ -1053,7 +1053,7 @@ def main():
     
     # Navigation
     pages = {
-        "fetch_music": render_fetch_music_page,
+        "fetch_music": render_auth_status,
         "mood_and_genre": render_mood_selection_page, 
         "playlist_details": render_playlist_details_page,
         "playlist_created": render_playlist_created_page
